@@ -40,8 +40,15 @@ CLIENT.on('message', message => {
         case "clear":
             CLIENT.commands.get('clear').execute(message, ARGS)
             break;
+        case "mute":
+            CLIENT.commands.get('mute').execute(message, ARGS)
+            break;
+        case "unmute":
+            CLIENT.commands.get('unmute').execute(message, ARGS)
+            break;
         case "reactionrole":
             CLIENT.commands.get('reactionrole').execute(message, ARGS, DISCORD, CLIENT)
+            break;
     }
 
 })
