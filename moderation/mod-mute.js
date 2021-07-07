@@ -16,6 +16,7 @@ module.exports = {
                 message.channel.send(`User <@${memberTarget.user.id}> has been muted`)
                 return;
             }
+            
             memberTarget.roles.remove(mainRole.id)
             memberTarget.roles.add(muteRole.id)
             message.channel.send(`User <@${memberTarget.user.id}> has been muted for ${ms(ms(args[1]))}`)
