@@ -1,23 +1,23 @@
 module.exports = {
-    name: 'reactionrole',
+    name: 'genderrole',
     description: 'Set reaction role message',
     async execute(messages, args, discord, client){
         const CHANNEL = '853540209589485574'
-        const role1 = ''
-        const role2 = ''
+        const role1 = 'Male'
+        const role2 = 'Female'
 
-        const role1emoji = ''
-        const role2emoji = ''
+        const role1emoji = ':male_sign:'
+        const role2emoji = ':female_sign:'
 
         let embed = new discord.MessageEmbed()
-            .setColor()
-            .setTitle()
-            .setDescription('xxxx\n\n'
-                + `${role1emoji}`
-                + `${role2emoji}`
+            .setColor("#FF8400")
+            .setTitle('Role Menu: Gender Roles')
+            .setDescription('React to give yourself a role\n\n'
+                + `${role1emoji}: \`Male\``
+                + `${role2emoji}: \`Female\``
             )
         
-        let MessageEmbed = await messages.CHANNEL.send('embed')
+        let MessageEmbed = await messages.CHANNEL.send(embed)
         MessageEmbed.react(role1emoji)
         MessageEmbed.react(role2emoji)
 

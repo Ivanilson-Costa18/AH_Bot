@@ -4,7 +4,9 @@ const PREFIX = "$"
 const FS = require('fs')
 
 CLIENT.commands = new DISCORD.Collection();
-const COMMAND_FILES = FS.readdirSync('./moderation/').filter(file => file.endsWith('.js'))
+var COMMAND_FILES
+COMMAND_FILES.concat(FS.readdirSync('./moderation/').filter(file => file.endsWith('.js')))
+COMMAND_FILES.concat(FS.readdirSync('./reaction-roles/').filter(file => file.endsWith('.js')))
 for(const FILE of COMMAND_FILES){
     const COMMAND = require(`./moderation/${FILE}`);
     CLIENT.commands.set(COMMAND.name, COMMAND)
@@ -46,8 +48,14 @@ CLIENT.on('message', message => {
         case "unmute":
             CLIENT.commands.get('unmute').execute(message, ARGS)
             break;
-        case "reactionrole":
-            CLIENT.commands.get('reactionrole').execute(message, ARGS, DISCORD, CLIENT)
+        case "grole":
+            CLIENT.commands.get('genderrole').execute(message, ARGS, DISCORD, CLIENT)
+            break;
+        case "arole":
+            CLIENT.commands.get('agerole').execute(message, ARGS, DISCORD, CLIENT)
+            break;
+        case "prole":
+            CLIENT.commands.get('platformrole').execute(message, ARGS, DISCORD, CLIENT)
             break;
     }
 
