@@ -4,10 +4,13 @@ const PREFIX = "$"
 const FS = require('fs')
 
 CLIENT.commands = new DISCORD.Collection();
-var COMMAND_FILES = FS.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'))
-for(const FILE of COMMAND_FILES){
-    const COMMAND = require(`./commands/${folder}/${FILE}`) || require(``);
-    CLIENT.commands.set(COMMAND.name, COMMAND)
+var commandFolders = FS.readdirSync(`./commands/`)
+for(const FOLDER of commandFolders){
+    const COMMAND_FILES = FS.readdirSync(`./commands/${FOLDER}`).filter(file => file.endsWith('.js'))
+    for(const FILE of  COMMAND_FILES){
+        const COMMAND = require(`./commands/${FOLDER}/${FILE}`);
+        CLIENT.commands.set(COMMAND.name, COMMAND)
+    }
 }
 
 CLIENT.once("ready", () => {
