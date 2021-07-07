@@ -17,7 +17,7 @@ CLIENT.once("ready", () => {
 CLIENT.on('guildMemberAdd', guildMember => {
     let role = guildMember.guild.roles.cache.find( role => role.name === 'Member')
     guildMember.roles.add(role)
-    guildMember.guild.channels.cache.get('853540209589485571').send(`Welcome to AFTER HOURS, <@${guildMember.user.id}!! Make sure to check out the rules`)
+    guildMember.guild.channels.cache.get('853540209589485571').send(`Welcome to AFTER HOURS, <@${guildMember.user.id}>!! Make sure to check out the rules`)
 })
 console.log(CLIENT.commands);
 
