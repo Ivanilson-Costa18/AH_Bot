@@ -4,7 +4,7 @@ const PREFIX = "$"
 const FS = require('fs')
 
 CLIENT.commands = new DISCORD.Collection();
-var COMMAND_FILES
+var COMMAND_FILES = []
 COMMAND_FILES.concat(FS.readdirSync('./moderation/').filter(file => file.endsWith('.js')))
 COMMAND_FILES.concat(FS.readdirSync('./reaction-roles/').filter(file => file.endsWith('.js')))
 for(const FILE of COMMAND_FILES){
