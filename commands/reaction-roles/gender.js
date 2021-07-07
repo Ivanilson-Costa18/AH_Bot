@@ -1,7 +1,10 @@
+const DISCORD = require('discord.js') 
+const CLIENT = new DISCORD.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
+
 module.exports = {
     name: 'genderrole',
     description: 'Set reaction role message',
-    async execute(messages, args, discord, client){
+    async execute(messages, args){
         const CHANNEL = '853540209589485574'
         const maleRole = messages.guild.role.cache.find(role => role.name === 'Male')
         const femaleRole = messages.guild.role.cache.find(role => role.name === 'Female')
@@ -9,7 +12,7 @@ module.exports = {
         const maleEmoji = ':male_sign:'
         const femaleEmoji = ':female_sign:'
 
-        let embed = new discord.MessageEmbed()
+        let embed = new DISCORD.MessageEmbed()
             .setColor("#FF8400")
             .setTitle('Role Menu: Gender Roles')
             .setDescription('React to give yourself a role\n\n'
@@ -21,7 +24,7 @@ module.exports = {
         MessageEmbed.react(maleEmoji)
         MessageEmbed.react(femaleEmoji)
 
-        client.on('messageReactionAdd', async (reaction, user) => {
+        CLIENT.on('messageReactionAdd', async (reaction, user) => {
             if (reaction.message.partial) await reaction.message.fetch()
             if (reaction.partial) await reaction.fetch()
             if (user.bot) return;
@@ -39,7 +42,7 @@ module.exports = {
             }
         })
 
-        client.on('messageReactionRemove', async (reaction, user) => {
+        CLIENT.on('messageReactionRemove', async (reaction, user) => {
             if (reaction.message.partial) await reaction.message.fetch()
             if (reaction.partial) await reaction.fetch()
             if (user.bot) return;

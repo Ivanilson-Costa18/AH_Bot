@@ -4,16 +4,15 @@ const PREFIX = "$"
 const FS = require('fs')
 
 CLIENT.commands = new DISCORD.Collection();
-var COMMAND_FILES = []
-COMMAND_FILES.concat(FS.readdirSync('./moderation/').filter(file => file.endsWith('.js')))
-COMMAND_FILES.concat(FS.readdirSync('./reaction-roles/').filter(file => file.endsWith('.js')))
+var COMMAND_FILES = FS.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'))
 for(const FILE of COMMAND_FILES){
-    const COMMAND = require(`./moderation/${FILE}`);
+    const COMMAND = require(`./commands/${folder}/${FILE}`) || require(``);
     CLIENT.commands.set(COMMAND.name, COMMAND)
 }
 
 CLIENT.once("ready", () => {
     console.log('AH_Bot online');
+    console.log(CLIENT.commands);
 })
 
 CLIENT.on('guildMemberAdd', guildMember => {
@@ -21,7 +20,7 @@ CLIENT.on('guildMemberAdd', guildMember => {
     guildMember.roles.add(role)
     guildMember.guild.channels.cache.get('853540209589485571').send(`Welcome to AFTER HOURS, <@${guildMember.user.id}>!! Make sure to check out the <#853540209589485569>`)
 })
-console.log(CLIENT.commands);
+
 
 CLIENT.on('message', message => {
     if(!message.content.startsWith(PREFIX) || message.author.bot) return;
@@ -29,35 +28,14 @@ CLIENT.on('message', message => {
     const ARGS = message.content.slice(PREFIX.length).split(" ");
     const COMMAND = ARGS.shift().toLocaleLowerCase()
 
-    switch(COMMAND){
-        case "sup":
-            CLIENT.commands.get('ping').execute(message, ARGS)
-            break;
-        case "kick":
-            CLIENT.commands.get('kick').execute(message, ARGS)
-            break;
-        case "ban":
-            CLIENT.commands.get('ban').execute(message, ARGS)
-            break;
-        case "clear":
-            CLIENT.commands.get('clear').execute(message, ARGS)
-            break;
-        case "mute":
-            CLIENT.commands.get('mute').execute(message, ARGS)
-            break;
-        case "unmute":
-            CLIENT.commands.get('unmute').execute(message, ARGS)
-            break;
-        case "grole":
-            CLIENT.commands.get('genderrole').execute(message, ARGS, DISCORD, CLIENT)
-            break;
-        case "arole":
-            CLIENT.commands.get('agerole').execute(message, ARGS, DISCORD, CLIENT)
-            break;
-        case "prole":
-            CLIENT.commands.get('platformrole').execute(message, ARGS, DISCORD, CLIENT)
-            break;
-    }
+    if (!client.commands.has(COMMAND)) return;
+
+	try {
+		client.commands.get(COMMAND).execute(message, args);
+	} catch (error) {
+		console.error(error);
+		message.reply('there was an error trying to execute that command!');
+	}
 
 })
 
