@@ -18,12 +18,12 @@ module.exports = {
             }
             memberTarget.roles.remove(mainRole.id)
             memberTarget.roles.add(muteRole.id)
-            message.channel.send(`User <@${TARGET.user.id}> has been muted for ${ms(ms(args[1]))}`)
+            message.channel.send(`User <@${memberTarget.user.id}> has been muted for ${ms(ms(args[1]))}`)
 
             setTimeout(() => {
                 memberTarget.roles.remove(muteRole.id)
                 memberTarget.roles.add(mainRole.id)
-                message.channel.send(`User <@${TARGET.user.id}> mute has expired`)
+                message.channel.send(`User <@${memberTarget.user.id}> mute has expired`)
             }, ms(args[1]))
         }else{
             message.channel.send('Can\'t find user')

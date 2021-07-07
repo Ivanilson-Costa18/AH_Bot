@@ -10,7 +10,7 @@ module.exports = {
             let memberTarget = message.guild.members.cache.get(TARGET.id)
             memberTarget.roles.remove(muteRole.id)
             memberTarget.roles.add(mainRole.id)
-            message.channel.send(`User <@${TARGET.user.id}> has been unmuted`)
+            message.channel.send(`User <@${memberTarget.user.id}> has been unmuted`)
         }else{
             message.channel.send('Can\'t find user')
         }
