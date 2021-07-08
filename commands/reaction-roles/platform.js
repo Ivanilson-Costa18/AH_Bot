@@ -58,13 +58,13 @@ module.exports = {
 
             if (reaction.message.channel.id == CHANNEL){
                 if(reaction.emoji.name === pcEmoji){
-                    await reaction.message.guild.members.cache.get(user.id).roles.add(pcrole)
+                    await reaction.message.guild.members.cache.get(user.id).roles.remove(pcrole)
                 }
                 if(reaction.emoji.name === mobileEmoji){
-                    await reaction.message.guild.members.cache.get(user.id).roles.add(mobilerole)
+                    await reaction.message.guild.members.cache.get(user.id).roles.remove(mobilerole)
                 }
                 if(reaction.emoji.name === consoleEmoji){
-                    await reaction.message.guild.members.cache.get(user.id).roles.add(consolerole)
+                    await reaction.message.guild.members.cache.get(user.id).roles.remove(consolerole)
                 }
             } else {
                 return;
