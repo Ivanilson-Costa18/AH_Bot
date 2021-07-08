@@ -31,10 +31,10 @@ CLIENT.on('message', message => {
     const ARGS = message.content.slice(PREFIX.length).split(" ");
     const COMMAND = ARGS.shift().toLocaleLowerCase()
 
-    if (!client.commands.has(COMMAND)) return;
+    if (!CLIENT.commands.has(COMMAND)) return;
 
 	try {
-		client.commands.get(COMMAND).execute(message, args);
+		CLIENT.commands.get(COMMAND).execute(message, ARGS, CLIENT);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');

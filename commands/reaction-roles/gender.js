@@ -1,28 +1,29 @@
 const DISCORD = require('discord.js') 
-const CLIENT = new DISCORD.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
 
 module.exports = {
     name: 'genderrole',
-    description: 'Set reaction role message',
-    async execute(messages, args){
-        const CHANNEL = '853540209589485574'
-        const maleRole = messages.guild.role.cache.find(role => role.name === 'Male')
-        const femaleRole = messages.guild.role.cache.find(role => role.name === 'Female')
+    description: 'Set gender reaction role message',
+    async execute(message, args, CLIENT){
+        message.channel.messages.fetch({limit: 1}).then( messages => 
+            message.channel.bulkDelete(messages))
+        const CHANNEL = '853540209589485574';
+        const maleRole = message.guild.roles.cache.find(role => role.name === 'Male');
+        const femaleRole = message.guild.roles.cache.find(role => role.name === 'Female');
 
-        const maleEmoji = ':male_sign:'
-        const femaleEmoji = ':female_sign:'
+        const maleEmoji = '♂️';
+        const femaleEmoji = '♀️';
 
         let embed = new DISCORD.MessageEmbed()
             .setColor("#FF8400")
             .setTitle('Role Menu: Gender Roles')
             .setDescription('React to give yourself a role\n\n'
-                + `${maleEmoji}: \`Male\``
-                + `${fmaleEmoji}: \`Female\``
+                + `${maleEmoji} :  \`Male\`\n\n`
+                + `${femaleEmoji} :  \`Female\``
             )
         
-        let MessageEmbed = await messages.CHANNEL.send(embed)
-        MessageEmbed.react(maleEmoji)
-        MessageEmbed.react(femaleEmoji)
+        let messageEmbed = await message.channel.send(embed);
+        messageEmbed.react(maleEmoji)
+        messageEmbed.react(femaleEmoji)
 
         CLIENT.on('messageReactionAdd', async (reaction, user) => {
             if (reaction.message.partial) await reaction.message.fetch()
