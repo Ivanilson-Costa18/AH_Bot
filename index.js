@@ -26,7 +26,7 @@ CLIENT.on('guildMemberAdd', guildMember => {
 
 
 CLIENT.on('message', async message => {
-    if(/(https:\/\/)?(discord.gg\/)+[a-zA-Z0-9]/.test(message.content) && message.member.roles.cache.some(r => r.name.toLowerCase() !== "owner" )){
+    if(/(https:\/\/)?(discord.gg\/)+[a-zA-Z0-9]/.test(message.content) && !message.member.roles.cache.some(r => r.name.toLowerCase() === "owner" )){
         message.delete()    
         let embed = new DISCORD.MessageEmbed()
         .setColor('#FF8400')
