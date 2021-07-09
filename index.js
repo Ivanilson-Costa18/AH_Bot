@@ -26,7 +26,7 @@ CLIENT.on('guildMemberAdd', guildMember => {
 
 
 CLIENT.on('message', message => {
-    if(message.content.match(/(https:\/\/)?(discord.gg\/)+[a-zA-Z0-9])/)){
+    if(message.content.match(/(https:\/\/)?(discord.gg\/)+[a-zA-Z0-9])/g)){
         if(message.member.roles.cache.some(r => r.name.toLowerCase() !== "owner" )){
             let embed = new DISCORD.MessageEmbed()
             .setColor('#FF8400')
