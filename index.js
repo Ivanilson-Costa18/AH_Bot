@@ -26,15 +26,13 @@ CLIENT.on('guildMemberAdd', guildMember => {
 
 
 CLIENT.on('message', message => {
-    if(message.content.match(/(https:\/\/)?(discord.gg\/)+[a-zA-Z0-9])/g)){
-        if(message.member.roles.cache.some(r => r.name.toLowerCase() !== "owner" )){
-            let embed = new DISCORD.MessageEmbed()
-            .setColor('#FF8400')
-            .setTitle('Warning: Invite Link')
-            .setDescription(`<@${message.author.id}>, you do not have permission to send invite links.`)
-            message.channel.send(embed)
-            return;
-        }
+    if(/(https:\/\/)?(discord.gg\/)+[a-zA-Z0-9]/.test(message.content) && message.member.roles.cache.some(r => r.name.toLowerCase() !== "owner" )){
+        let embed = new DISCORD.MessageEmbed()
+        .setColor('#FF8400')
+        .setTitle('Warning: Invite Link')
+        .setDescription(`<@${message.author.id}>, you do not have permission to send invite links.`)
+        message.channel.send(embed)
+        return;
     }
 
     if(!message.content.startsWith(PREFIX) || message.author.bot) return;
