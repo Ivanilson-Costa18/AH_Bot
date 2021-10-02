@@ -1,7 +1,7 @@
 module.exports = {
     name: 'unmute',
     description: 'unmute member',
-    execute(message, args, CLIENT){
+    execute(client, message, args){
         const TARGET = message.mentions.users.first()
         if(TARGET){
             let mainRole = message.guild.roles.cache.find(role => role.name === "Member")

@@ -1,7 +1,7 @@
 module.exports = {
     name: 'kick',
     description: 'kick member',
-    execute(message, args, CLIENT){
+    execute(client, message, args){
         if(message.member.permissions.has('KICK_MEMBER')){
             const MEMBER = message.mentions.users.first()
             if(MEMBER){

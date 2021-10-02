@@ -3,10 +3,11 @@ const DISCORD = require('discord.js')
 module.exports = {
     name: 'colorrole',
     description: 'Set color reaction role message',
-    async execute(message, args, CLIENT){
+    async execute(CLIENT, message, args){
         message.channel.messages.fetch({limit: 1}).then( messages => 
             message.channel.bulkDelete(messages))
-        const CHANNEL = '853540209589485574';
+        const CHANNEL1 = '869350581611950100';
+        const CHANNEL2 = '853540209589485574';
         const whiteRole = message.guild.roles.cache.find(role => role.name === 'White');
         const blackRole = message.guild.roles.cache.find(role => role.name === 'Black')
         const redRole = message.guild.roles.cache.find(role => role.name === 'Red')
@@ -43,7 +44,7 @@ module.exports = {
             if (user.bot) return;
             if (!reaction.message.guild) return;
 
-            if (reaction.message.channel.id == CHANNEL){
+            if (reaction.message.channel.id == CHANNEL1 || reaction.message.channel.id == CHANNEL2){
                 if(reaction.emoji.name === whiteEmoji){
                     await reaction.message.guild.members.cache.get(user.id).roles.add(whiteRole)
                 }
@@ -70,7 +71,7 @@ module.exports = {
             if (user.bot) return;
             if (!reaction.message.guild) return;
 
-            if (reaction.message.channel.id == CHANNEL){
+            if (reaction.message.channel.id == CHANNEL1 || reaction.message.channel.id == CHANNEL2){
                 if(reaction.emoji.name === whiteEmoji){
                     await reaction.message.guild.members.cache.get(user.id).roles.remove(whiteRole)
                 }

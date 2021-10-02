@@ -1,7 +1,7 @@
 module.exports = {
     name: 'ban',
     description: 'ban member',
-    execute(message, args, CLIENT){
+    execute(client, message, args){
         if(message.member.permissions.has('BAN_MEMBER')){
             const MEMBER = message.mentions.users.first()
             if(MEMBER){

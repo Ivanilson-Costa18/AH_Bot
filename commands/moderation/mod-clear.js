@@ -1,7 +1,7 @@
 module.exports = {
     name: 'clear',
     description: 'clear messages',
-    async execute(message, args, CLIENT){
+    async execute(client, message, args){
         if(!args[0]) return message.reply("nºmessages missing")
         if(isNaN(args[0])) return message.reply("nºmessages nan")
         if(args[0] <= 0 || args[0] > 100) return message.reply("0 < nºmessages < 100")
