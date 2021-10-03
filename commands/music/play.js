@@ -1,12 +1,13 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
-const DISCORD = require('discord.js')
+const DISCORD = require('discord.js');
+const message = require('../../events/guild/message');
 
 const queue = new Map()
 
 module.exports = {
     name: 'play',
-    aliases: ['skip', 'leave', 'p', 's', 'l'],
+    aliases: ['skip', 'leave', 'queue', 'p', 's', 'l'],
     cooldown: 0,
     description: 'Joins and plays music',
     async execute(client, message, args, discord, cmd){
@@ -38,7 +39,7 @@ module.exports = {
                     .setDescription(`🎵 Searching :mag_right: ${args.join(' ')} [<@${message.author.id}>]`)
                     message.channel.send(embed)
                 if (video){
-                    song = {title: video.title, url: video.url}
+                    song = {title: video.title, url: video.url, duration: video.duration}
                 } else {
                     message.channel.send(`<@${message.author.id}>, Song requested was not found.`)
                 }
@@ -74,6 +75,7 @@ module.exports = {
         } 
         else if( cmd === 'skip' || cmd === 's') skip_song(message, server_queue)
         else if( cmd === 'leave' || cmd === 'l') stop_song(message, server_queue)
+        else if( cmd === 'queue') show_queue(message, server_queue)
     }
 }
 
@@ -112,4 +114,36 @@ const stop_song = (message, server_queue) => {
     if(!message.member.voice.channel) return  message.channel.send(`<@${message.author.id}, you need to join the voice channel to use this command.`);
     server_queue.songs = []
     server_queue.connection.dispatcher.end();
+}
+
+const show_queue = (message, server_queue) => {
+    if(!server_queue) return message.channel.send('I\'m not playing any songs :sweat_smile:')
+
+    let songs_message = ''
+    let songs_list = []
+    let difference = 0
+    let embed =  new DISCORD.MessageEmbed()
+    .setColor('#FF8400')
+
+    songs_list.push(...server_queue.songs)
+    embed
+    .setTitle(`:headphones: Now playing: ***${songs_list[0].title}*** \n\n`+
+              'SONGS QUEUE')
+    if(songs_list.length <= 1 ) return message.channel.send(embed.setDescription('***Queue is empty***'));
+    songs_list.shift()
+    for(let i in songs_list){
+        songs_message += `${Number(i)+1} - ***${songs_list[Number(i)].title}***  (${songs_list[Number(i)].duration.timestamp}) \n`
+        if(i==4) {
+            difference = songs_list.length - i - 1 
+            break;
+        }
+    }
+     
+    embed
+    .setDescription(songs_message)
+    if(difference){
+        embed.setFooter(`And ${difference} more!!`)
+    }
+
+    message.channel.send(embed)
 }

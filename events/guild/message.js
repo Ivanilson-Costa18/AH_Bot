@@ -1,7 +1,7 @@
 module.exports = (discord, client, message) => {
-    if(/(https:\/\/)?(discord.gg\/)+[a-zA-Z0-9]/.test(message.content) && !message.member.roles.cache.some(r => r.name.toLowerCase() === "owner" )){
+    if(/(https:\/\/)?(discord.gg\/)+[a-zA-Z0-9]/.test(message.content) && !message.member.roles.cache.some(r => r.name.toLowerCase() === "admin" )){
         message.delete()    
-        let embed = new DISCORD.MessageEmbed()
+        let embed = new discord.MessageEmbed()
         .setColor('#FF8400')
         .setTitle('Warning: Invite Link')
         .setDescription(`<@${message.author.id}>, you do not have permission to send invite links.`)
