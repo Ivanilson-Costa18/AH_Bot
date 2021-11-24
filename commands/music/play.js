@@ -19,12 +19,12 @@ module.exports = {
     async execute(client, message, args, discord, cmd){
         const voice_channel = message.member.voice.channel;
 
-        var spotifyApi = new SpotifyWebApi({
+        var spotifyApi = await new SpotifyWebApi({
             clientId: client_id,
             clientSecret: client_secret,
           });
         
-        spotifyApi.clientCredentialsGrant().then(
+        await spotifyApi.clientCredentialsGrant().then(
             function(data) {
               spotifyApi.setAccessToken(data.body['access_token']);
             },
