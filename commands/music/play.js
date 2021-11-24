@@ -9,25 +9,6 @@ const spotify_regex = /([a-zA-Z0-9]+)[?]/
 var client_id = 'ae3f595684394ec781951659ff01fcfd'; // Your client id
 var client_secret = 'deeda28a8d7246dca3c0a1caf6e287c5'; // Your secret
 
-var spotifyApi = new SpotifyWebApi({
-    clientId: client_id,
-    clientSecret: client_secret,
-  });
-
-spotifyApi.clientCredentialsGrant().then(
-    function(data) {
-      console.log('The access token expires in ' + data.body['expires_in']);
-      console.log('The access token is ' + data.body['access_token']);
-  
-      // Save the access token so that it's used in future calls
-      spotifyApi.setAccessToken(data.body['access_token']);
-    },
-    function(err) {
-      console.log('Something went wrong when retrieving an access token', err);
-    }
-  );
-
-
 const queue = new Map()
 
 module.exports = {
@@ -37,6 +18,20 @@ module.exports = {
     description: 'Joins and plays music',
     async execute(client, message, args, discord, cmd){
         const voice_channel = message.member.voice.channel;
+
+        var spotifyApi = new SpotifyWebApi({
+            clientId: client_id,
+            clientSecret: client_secret,
+          });
+        
+        spotifyApi.clientCredentialsGrant().then(
+            function(data) {
+              spotifyApi.setAccessToken(data.body['access_token']);
+            },
+            function(err) {
+              console.log('Something went wrong when retrieving an access token', err);
+            }
+          );
 
         if(!voice_channel) return message.channel.send(`<@${message.author.id}>, you need to be in a voice channel to execute the command!`);
         const permissions = voice_channel.permissionsFor(message.client.user)
