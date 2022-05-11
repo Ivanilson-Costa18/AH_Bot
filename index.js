@@ -1,5 +1,7 @@
 const DISCORD = require('discord.js') 
 const CLIENT = new DISCORD.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
+var dotenv = require('dotenv')
+dotenv.config({path: './.env'})
 
 CLIENT.commands = new DISCORD.Collection();
 CLIENT.events = new DISCORD.Collection()
@@ -9,4 +11,5 @@ folders.forEach(handler => {
     require(`./handlers/${handler}`)(CLIENT, DISCORD)
 });
 
-CLIENT.login("ODYyMDcxMjg0MTIwMDI3MTY3.YOTAcg.3U-gT9M0tc0m1K3EQYMWKPpIK10");
+CLIENT.login(process.env.TOKEN);
+
