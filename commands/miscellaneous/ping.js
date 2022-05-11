@@ -1,8 +1,8 @@
 
 module.exports = {
     name: 'ping',
-    description: 'list commands',
+    description: 'check for connection',
     async execute(client, message, args, discord, cmd){
-        message.channel.send("pong!")
+        message.channel.send(`<@${message.author.id}, Pong!`)
     }
 }

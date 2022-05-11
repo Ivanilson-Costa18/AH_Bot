@@ -168,7 +168,7 @@ const video_player = async (guild, song) => {
 }
 
 const skip_song = (message, server_queue) => {
-    if(!message.member.voice.channel) return message.channel.send(`<@${message.author.id}, you need to join the voice channel to use this command.`);
+    if(!message.member.voice.channel) return message.channel.send(`<@${message.author.id}>, you need to join the voice channel to use this command.`);
     if(!server_queue) return;
     server_queue.connection.dispatcher.end();
     let embed = new DISCORD.MessageEmbed()
@@ -178,7 +178,7 @@ const skip_song = (message, server_queue) => {
 }
 
 const stop_song = (message, server_queue) => {
-    if(!message.member.voice.channel) return  message.channel.send(`<@${message.author.id}, you need to join the voice channel to use this command.`);
+    if(!message.member.voice.channel) return  message.channel.send(`<@${message.author.id}>, you need to join the voice channel to use this command.`);
     server_queue.songs = []
     server_queue.connection.dispatcher.end();
 }

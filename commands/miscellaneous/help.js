@@ -23,6 +23,6 @@ module.exports = {
             { name: 'unmute', value: 'unmute member', inline: true },
             { name: '\u200B', value: '\u200B' }
             )
-        .setFooter('Made by: Le IvanPG20'))
+        .setFooter('Made by: Le IvanPG'))
     }
 }
