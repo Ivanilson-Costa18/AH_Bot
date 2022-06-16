@@ -6,8 +6,8 @@ const https = require('https')
 const SpotifyWebApi = require('spotify-web-api-node');
 const { count } = require('console');
 const spotify_regex = /([a-zA-Z0-9]+)[?]/
-var client_id = 'process.env.CLIENT_ID'; // Your client id
-var client_secret = 'process.env.CLIENT_SECRET'; // Your secret
+var client_id = process.env.CLIENT_ID; 
+var client_secret = process.env.CLIENT_SECRET; 
 
 const queue = new Map()
 
